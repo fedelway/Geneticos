@@ -1,0 +1,8 @@
+C:\Users\lelouch\Documents\SharpDevelop Projects\Geneticos\Geneticos\obj\Debug\Geneticos.csprojResolveAssemblyReference.cache
+C:\Users\lelouch\Documents\SharpDevelop Projects\Geneticos\Geneticos\bin\Debug\Geneticos.exe.config
+C:\Users\lelouch\Documents\SharpDevelop Projects\Geneticos\Geneticos\bin\Debug\Geneticos.exe
+C:\Users\lelouch\Documents\SharpDevelop Projects\Geneticos\Geneticos\bin\Debug\Geneticos.pdb
+C:\Users\lelouch\Documents\SharpDevelop Projects\Geneticos\Geneticos\obj\Debug\Geneticos.exe
+C:\Users\lelouch\Documents\SharpDevelop Projects\Geneticos\Geneticos\obj\Debug\Geneticos.pdb
+C:\Users\lelouch\Documents\SharpDevelop Projects\Geneticos\Geneticos\obj\Debug\Geneticos.MainForm.resources
+C:\Users\lelouch\Documents\SharpDevelop Projects\Geneticos\Geneticos\obj\Debug\Geneticos.csproj.GenerateResource.Cache
