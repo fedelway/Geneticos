@@ -28,46 +28,54 @@ namespace Geneticos
 		
 		void MainFormLoad(object sender, EventArgs e)
 		{
-			var historico = new List<Individuo>();
-			var poblacion = generarPoblacionInicial();
+			const int tamañoPoblacion = 16;
 			
-			for(int i=0;i<100000;i++)
+			for(int corrida = 1;corrida<=3;corrida++)
 			{
-				var seleccion = seleccionTorneo(poblacion);
+				var historico = new List<Individuo>();
+				var poblacion = generarPoblacionInicial(tamañoPoblacion);
 				
-				var nuevaGeneracion = new List<Individuo>();
-				for(int j=0;j<seleccion.Count;j++)
+				for(int i=0;i<100000;i++)
 				{
-					var r1 = MyRandom.Next() % seleccion.Count;
-					var r2 = MyRandom.Next() % seleccion.Count;
-					nuevaGeneracion.AddRange(seleccion[r1].cruzar(seleccion[r2]));
-					//nuevaGeneracion.AddRange(seleccion[j].cruzar(seleccion[j+1]));
+					var seleccion = seleccionTorneo(poblacion);
+					
+					var nuevaGeneracion = new List<Individuo>();
+					for(int j=0;j<seleccion.Count;j++)
+					{
+						var r1 = MyRandom.Next() % seleccion.Count;
+						var r2 = MyRandom.Next() % seleccion.Count;
+						nuevaGeneracion.AddRange(seleccion[r1].cruzar(seleccion[r2]));
+						//nuevaGeneracion.AddRange(seleccion[j].cruzar(seleccion[j+1]));
+					}
+					
+					if(i%100 == 0)
+						mutar(nuevaGeneracion);
+					
+					poblacion = nuevaGeneracion;
+					
+					//historico.Add(poblacion.OrderByDescending(o => o.fitness()).First());
+					historico.AddRange(poblacion);
 				}
 				
-				if(i%100 == 0)
-					mutar(nuevaGeneracion);
+				var mejorIndividuo = historico.OrderByDescending(i => i.fitness()).First();
+				var mejorFitness = mejorIndividuo.fitness();
 				
-				poblacion = nuevaGeneracion;
+				//MessageBox.Show("Mejor individuo: " + mejorIndividuo.cromosomaString() );
 				
-				//historico.Add(poblacion.OrderByDescending(o => o.fitness()).First());
-				historico.AddRange(poblacion);
+				string filename = "E:\\Geneticos\\corrida-" + corrida.ToString() + "-" + "TamañoPoblacion-" + tamañoPoblacion.ToString() + "-" + DateTime.Now.ToString().Replace(":","").Replace("/","") + ".csv";
+				
+				writeCSV(historico,filename);
 			}
 			
-			var mejorIndividuo = historico.OrderByDescending(i => i.fitness()).First();
-			var mejorFitness = mejorIndividuo.fitness();
-			
-			//MessageBox.Show("Mejor individuo: " + mejorIndividuo.cromosomaString() );
-			
-			writeCSV(historico);
 			
 			this.Close();
 		}
 		
-		public List<Individuo> generarPoblacionInicial()
+		public List<Individuo> generarPoblacionInicial(int tamaño)
 		{
 			var list = new List<Individuo>();
 			
-			for (int i=0; i<20; i++){
+			for (int i=0; i<tamaño; i++){
 				
 				var cromosoma = new Individuo.Gen[24];
 				
@@ -102,7 +110,7 @@ namespace Geneticos
 			poblacion[r].mutar();
 		}
 		
-		void writeCSV(List<Individuo> historico)
+		void writeCSV(List<Individuo> historico,string filename)
 		{
 			var sb = new StringBuilder();
 			
@@ -114,7 +122,7 @@ namespace Geneticos
 				sb.Append(Environment.NewLine);
 			}
 			
-			File.WriteAllText("E:\\geneticos.csv",sb.ToString());
+			File.WriteAllText(filename,sb.ToString());
 		}
 	}
 }
